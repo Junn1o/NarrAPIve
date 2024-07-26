@@ -3,6 +3,7 @@ namespace BlogAPI.Model.DTO
 {
     public class credential
     {
+        [Key]
         public Guid user_id { get; set; }
         public string cred_role { get; set; }
         public string cred_userName { get; set; }

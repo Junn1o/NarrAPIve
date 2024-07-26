@@ -26,7 +26,6 @@
 
   <ItemGroup>
     <Folder Include="Controller\" />
-    <Folder Include="Data\" />
     <Folder Include="Model\Domain\" />
     <Folder Include="wwwroot\" />
     <Folder Include="Repository\" />

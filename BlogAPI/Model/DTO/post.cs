@@ -16,5 +16,6 @@ namespace BlogAPI.Model.DTO
         public bool post_type { get; set; }
         public List<post_category_temp> post_category_temp { get; set; }
         public user user { get; set; }
+        public List<volume> volume { get; set; }
     }
 }
