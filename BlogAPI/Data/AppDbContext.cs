@@ -1,4 +1,4 @@
-﻿using BlogAPI.Model.DTO;
+﻿using BlogAPI.Model.Domain;
 using Microsoft.EntityFrameworkCore;
 
 namespace BlogAPI.Data

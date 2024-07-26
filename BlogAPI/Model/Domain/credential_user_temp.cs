@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace BlogAPI.Model.DTO
+namespace BlogAPI.Model.Domain
 {
     public class credential_user_temp
     {
