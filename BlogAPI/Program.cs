@@ -1,4 +1,6 @@
 using BlogAPI.Data;
+using BlogAPI.Repository.Interface;
+using BlogAPI.Repository;
 using Microsoft.AspNetCore.Authentication.Certificate;
 using Microsoft.EntityFrameworkCore;
 
@@ -16,6 +18,8 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 builder.Services.AddAuthentication(
         CertificateAuthenticationDefaults.AuthenticationScheme)
     .AddCertificate();
+builder.Services.AddScoped<IPostRepository, PostRepository>();
+builder.Services.AddScoped<IUserRepository, UserRepository>();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

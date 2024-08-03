@@ -22,7 +22,7 @@ namespace BlogAPI.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("BlogAPI.Model.DTO.category", b =>
+            modelBuilder.Entity("BlogAPI.Model.Domain.category", b =>
                 {
                     b.Property<Guid>("category_id")
                         .ValueGeneratedOnAdd()
@@ -34,16 +34,20 @@ namespace BlogAPI.Migrations
 
                     b.HasKey("category_id");
 
-                    b.ToTable("Categories");
+                    b.ToTable("category");
                 });
 
-            modelBuilder.Entity("BlogAPI.Model.DTO.chapter", b =>
+            modelBuilder.Entity("BlogAPI.Model.Domain.chapter", b =>
                 {
                     b.Property<Guid>("chapter_id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("chapter_content")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("chapter_title")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
@@ -54,37 +58,43 @@ namespace BlogAPI.Migrations
 
                     b.HasIndex("volume_id");
 
-                    b.ToTable("Chapters");
+                    b.ToTable("chapter");
                 });
 
-            modelBuilder.Entity("BlogAPI.Model.DTO.credential", b =>
+            modelBuilder.Entity("BlogAPI.Model.Domain.credential", b =>
                 {
-                    b.Property<Guid>("user_id")
+                    b.Property<Guid>("cred_id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<string>("cred_createDate")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<DateTime>("cred_createDate")
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("cred_passWord")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("cred_role")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("cred_roleid")
+                        .HasColumnType("int");
 
                     b.Property<string>("cred_userName")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("user_id");
+                    b.Property<Guid>("user_id")
+                        .HasColumnType("uniqueidentifier");
 
-                    b.ToTable("Credentials");
+                    b.HasKey("cred_id");
+
+                    b.HasIndex("cred_roleid");
+
+                    b.HasIndex("user_id")
+                        .IsUnique();
+
+                    b.ToTable("credential");
                 });
 
-            modelBuilder.Entity("BlogAPI.Model.DTO.post", b =>
+            modelBuilder.Entity("BlogAPI.Model.Domain.post", b =>
                 {
                     b.Property<Guid>("post_id")
                         .HasColumnType("uniqueidentifier");
@@ -92,16 +102,12 @@ namespace BlogAPI.Migrations
                     b.Property<DateTime>("post_createDate")
                         .HasColumnType("datetime2");
 
+                    b.Property<string>("post_description")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<bool>("post_hidden")
                         .HasColumnType("bit");
-
-                    b.Property<string>("post_longDes")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("post_shortDes")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("post_status")
                         .HasColumnType("bit");
@@ -115,10 +121,10 @@ namespace BlogAPI.Migrations
 
                     b.HasKey("post_id");
 
-                    b.ToTable("Posts");
+                    b.ToTable("post");
                 });
 
-            modelBuilder.Entity("BlogAPI.Model.DTO.post_category_temp", b =>
+            modelBuilder.Entity("BlogAPI.Model.Domain.post_category_temp", b =>
                 {
                     b.Property<Guid>("id")
                         .ValueGeneratedOnAdd()
@@ -136,13 +142,38 @@ namespace BlogAPI.Migrations
 
                     b.HasIndex("post_id");
 
-                    b.ToTable("PostCategories");
+                    b.ToTable("post_category_temp");
                 });
 
-            modelBuilder.Entity("BlogAPI.Model.DTO.user", b =>
+            modelBuilder.Entity("BlogAPI.Model.Domain.role", b =>
+                {
+                    b.Property<int>("role_id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("role_id"));
+
+                    b.Property<string>("role_description")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("role_name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("role_id");
+
+                    b.ToTable("role");
+                });
+
+            modelBuilder.Entity("BlogAPI.Model.Domain.user", b =>
                 {
                     b.Property<Guid>("user_id")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("user_avatar")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("user_birthDate")
                         .HasColumnType("datetime2");
@@ -157,10 +188,10 @@ namespace BlogAPI.Migrations
 
                     b.HasKey("user_id");
 
-                    b.ToTable("Users");
+                    b.ToTable("user");
                 });
 
-            modelBuilder.Entity("BlogAPI.Model.DTO.volume", b =>
+            modelBuilder.Entity("BlogAPI.Model.Domain.volume", b =>
                 {
                     b.Property<Guid>("volume_id")
                         .ValueGeneratedOnAdd()
@@ -169,7 +200,10 @@ namespace BlogAPI.Migrations
                     b.Property<Guid>("post_id")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<string>("volume_name")
+                    b.Property<DateTime>("volume_createDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("volume_title")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
@@ -177,12 +211,12 @@ namespace BlogAPI.Migrations
 
                     b.HasIndex("post_id");
 
-                    b.ToTable("Volumes");
+                    b.ToTable("volume");
                 });
 
-            modelBuilder.Entity("BlogAPI.Model.DTO.chapter", b =>
+            modelBuilder.Entity("BlogAPI.Model.Domain.chapter", b =>
                 {
-                    b.HasOne("BlogAPI.Model.DTO.volume", "volume")
+                    b.HasOne("BlogAPI.Model.Domain.volume", "volume")
                         .WithMany("chapter")
                         .HasForeignKey("volume_id")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -191,9 +225,28 @@ namespace BlogAPI.Migrations
                     b.Navigation("volume");
                 });
 
-            modelBuilder.Entity("BlogAPI.Model.DTO.post", b =>
+            modelBuilder.Entity("BlogAPI.Model.Domain.credential", b =>
                 {
-                    b.HasOne("BlogAPI.Model.DTO.user", "user")
+                    b.HasOne("BlogAPI.Model.Domain.role", "role")
+                        .WithMany("credential")
+                        .HasForeignKey("cred_roleid")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("BlogAPI.Model.Domain.user", "user")
+                        .WithOne("credential")
+                        .HasForeignKey("BlogAPI.Model.Domain.credential", "user_id")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("role");
+
+                    b.Navigation("user");
+                });
+
+            modelBuilder.Entity("BlogAPI.Model.Domain.post", b =>
+                {
+                    b.HasOne("BlogAPI.Model.Domain.user", "user")
                         .WithMany("post")
                         .HasForeignKey("post_id")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -202,15 +255,15 @@ namespace BlogAPI.Migrations
                     b.Navigation("user");
                 });
 
-            modelBuilder.Entity("BlogAPI.Model.DTO.post_category_temp", b =>
+            modelBuilder.Entity("BlogAPI.Model.Domain.post_category_temp", b =>
                 {
-                    b.HasOne("BlogAPI.Model.DTO.category", "category")
+                    b.HasOne("BlogAPI.Model.Domain.category", "category")
                         .WithMany("post_category_temp")
                         .HasForeignKey("category_id")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("BlogAPI.Model.DTO.post", "post")
+                    b.HasOne("BlogAPI.Model.Domain.post", "post")
                         .WithMany("post_category_temp")
                         .HasForeignKey("post_id")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -221,20 +274,9 @@ namespace BlogAPI.Migrations
                     b.Navigation("post");
                 });
 
-            modelBuilder.Entity("BlogAPI.Model.DTO.user", b =>
+            modelBuilder.Entity("BlogAPI.Model.Domain.volume", b =>
                 {
-                    b.HasOne("BlogAPI.Model.DTO.credential", "credential")
-                        .WithOne("user")
-                        .HasForeignKey("BlogAPI.Model.DTO.user", "user_id")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("credential");
-                });
-
-            modelBuilder.Entity("BlogAPI.Model.DTO.volume", b =>
-                {
-                    b.HasOne("BlogAPI.Model.DTO.post", "post")
+                    b.HasOne("BlogAPI.Model.Domain.post", "post")
                         .WithMany("volume")
                         .HasForeignKey("post_id")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -243,30 +285,32 @@ namespace BlogAPI.Migrations
                     b.Navigation("post");
                 });
 
-            modelBuilder.Entity("BlogAPI.Model.DTO.category", b =>
+            modelBuilder.Entity("BlogAPI.Model.Domain.category", b =>
                 {
                     b.Navigation("post_category_temp");
                 });
 
-            modelBuilder.Entity("BlogAPI.Model.DTO.credential", b =>
-                {
-                    b.Navigation("user")
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("BlogAPI.Model.DTO.post", b =>
+            modelBuilder.Entity("BlogAPI.Model.Domain.post", b =>
                 {
                     b.Navigation("post_category_temp");
 
                     b.Navigation("volume");
                 });
 
-            modelBuilder.Entity("BlogAPI.Model.DTO.user", b =>
+            modelBuilder.Entity("BlogAPI.Model.Domain.role", b =>
                 {
+                    b.Navigation("credential");
+                });
+
+            modelBuilder.Entity("BlogAPI.Model.Domain.user", b =>
+                {
+                    b.Navigation("credential")
+                        .IsRequired();
+
                     b.Navigation("post");
                 });
 
-            modelBuilder.Entity("BlogAPI.Model.DTO.volume", b =>
+            modelBuilder.Entity("BlogAPI.Model.Domain.volume", b =>
                 {
                     b.Navigation("chapter");
                 });

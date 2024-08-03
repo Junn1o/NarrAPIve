@@ -11,5 +11,6 @@ namespace BlogAPI.Model.Domain
         public DateTime user_birthDate { get; set; }
         public List<post> post { get; set; }
         public credential credential { get; set; }
+        public string? user_avatar {  get; set; }
     }
 }

@@ -8,8 +8,7 @@ namespace BlogAPI.Model.Domain
         [Key]
         public Guid post_id { get; set; }
         public string post_title { get; set; }
-        public string post_shortDes { get; set; }
-        public string post_longDes { get; set; }
+        public string post_description { get; set; }
         public bool post_status { get; set; }
         public DateTime post_createDate { get; set; }
         public bool post_hidden { get; set; }

@@ -25,10 +25,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Controller\" />
-    <Folder Include="Model\DTO\" />
+    <Folder Include="Data\" />
+    <Folder Include="Migrations\" />
     <Folder Include="wwwroot\" />
-    <Folder Include="Repository\" />
   </ItemGroup>
 
 </Project>
