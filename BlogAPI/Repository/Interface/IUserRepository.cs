@@ -4,6 +4,7 @@ namespace BlogAPI.Repository.Interface
 {
     public interface IUserRepository 
     {
-        userrequestformDTO adduserDTO(userrequestformDTO userrequestformDTO); 
+        UserRequestFormDTO registeruser(UserRequestFormDTO userrequestformDTO); 
+        //LoginDataDTO loginData(LoginDataDTO logindataDTO, string userID);
     }
 }

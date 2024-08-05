@@ -44,7 +44,7 @@ namespace BlogAPI.Migrations
                     user_id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     user_firstName = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     user_lastName = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    user_birthDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    user_birthday = table.Column<DateTime>(type: "datetime2", nullable: false),
                     user_avatar = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
@@ -60,7 +60,7 @@ namespace BlogAPI.Migrations
                     user_id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     cred_roleid = table.Column<int>(type: "int", nullable: false),
                     cred_userName = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    cred_passWord = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    cred_password = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     cred_createDate = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
                 constraints: table =>

@@ -13,9 +13,9 @@ namespace BlogAPI.Repository
         {
             this.appDbContext = _appDbContext;
         }
-        public postresultDTO getfullpost(int pageNumber = 1, int pageSize = 10)
+        public PostResultDTO getfullpost(int pageNumber = 1, int pageSize = 10)
         {
-            var postQuery = appDbContext.post.Select(p => new postresultDTO.postlistDTO()
+            var postQuery = appDbContext.post.Select(p => new PostResultDTO.PostListDTO()
             {
                 postId = p.post_id,
                 postTitle = p.post_title,
@@ -30,7 +30,7 @@ namespace BlogAPI.Repository
                 var postList = postQuery.Skip(skipResults).Take(pageSize).ToList();
                 var totalResult = postQuery.Count();
                 var totalPage = (int)Math.Ceiling((double)totalResult / pageSize);
-                var result = new postresultDTO
+                var result = new PostResultDTO
                 {
                     post = postList.ToList(),
                     totalResult = totalResult,
@@ -40,7 +40,7 @@ namespace BlogAPI.Repository
                 return result;
             }
         }
-        public postrequestformDTO addpostDTO(postrequestformDTO addpost)
+        public PostrequestFormDTO addpostDTO(PostrequestFormDTO addpost)
         {
             //var user = _appDbContext.User.FirstOrDefault(a => a.Id == addpost.userId);
             var userid = appDbContext.user.FirstOrDefault(u => u.user_id == addpost.user_id);

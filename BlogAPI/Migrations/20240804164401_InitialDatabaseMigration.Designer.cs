@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BlogAPI.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20240803193515_InitialDatabaseMigration")]
+    [Migration("20240804164401_InitialDatabaseMigration")]
     partial class InitialDatabaseMigration
     {
         /// <inheritdoc />
@@ -20,7 +20,7 @@ namespace BlogAPI.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "8.0.6")
+                .HasAnnotation("ProductVersion", "8.0.7")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
@@ -73,7 +73,7 @@ namespace BlogAPI.Migrations
                     b.Property<DateTime>("cred_createDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("cred_passWord")
+                    b.Property<string>("cred_password")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
@@ -178,7 +178,7 @@ namespace BlogAPI.Migrations
                     b.Property<string>("user_avatar")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime>("user_birthDate")
+                    b.Property<DateTime>("user_birthday")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("user_firstName")

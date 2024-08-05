@@ -1,11 +1,11 @@
 ﻿namespace BlogAPI.Model.DTO
 {
-    public class categoryDTO
+    public class CategoryDTO
     {
         public Guid category_id { get; set; }
         public string category_name { get; set; }
     }
-    public class categorywithidDTO
+    public class CategoryWithIdDTO
     {
         public string category_name { get; set; }
     }

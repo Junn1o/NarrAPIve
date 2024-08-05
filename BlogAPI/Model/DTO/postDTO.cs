@@ -3,7 +3,7 @@
 namespace BlogAPI.Model.DTO
 {
 
-    public class postwithidDTO
+    public class PostwithIdDTO
     {
         public string postTitle { get; set; }
         //public string post_shortDes { get; set; }
@@ -17,16 +17,16 @@ namespace BlogAPI.Model.DTO
         //public List<string> chapter_list { get; set; }
         public List<string> volumeList { get; set; }
     }
-    public class postvolumewithidDTO
+    public class PostVolumeWithIdDTO
     {
         public string volumeTitle { get; set; }
         public List<string> chapterList { get; set; }
         public List<string> chapterContent { get; set; }
         public string volumeCreatDate { get; set; }
     }
-    public class postresultDTO
+    public class PostResultDTO
     {
-        public class postlistDTO
+        public class PostListDTO
         {
             public Guid postId { get; set; }
             public string postTitle { get; set; }
@@ -38,11 +38,11 @@ namespace BlogAPI.Model.DTO
             public bool postType { get; set; }
             public Guid volumeId { get; set; }
         }
-        public List<postlistDTO> post { get; set; }
+        public List<PostListDTO> post { get; set; }
         public int totalResult { get; set; }
         public int totalPages { get; set; }
     }
-    public class postrequestformDTO
+    public class PostrequestFormDTO
     {
         public string postTitle { get; set; }
         //public string post_shortDes { get; set; }
@@ -54,11 +54,11 @@ namespace BlogAPI.Model.DTO
         public Guid user_id { get; set; }
         public List<Guid> category_ids { get; set; }
     }
-    public class volumerequestformDTO
+    public class VolumeRequestFormDTO
     {
         public string volumeTitle { get; set; }
     }
-    public class chapterrequestformDTO
+    public class ChapterRequestFormDTO
     {
         public Guid volumeId { get; set; }
         public string chapterTitle { get; set; }

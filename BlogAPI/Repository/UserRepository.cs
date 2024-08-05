@@ -2,33 +2,49 @@
 using BlogAPI.Model.Domain;
 using BlogAPI.Model.DTO;
 using BlogAPI.Repository.Interface;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
+using Microsoft.IdentityModel.Tokens;
 using System.Globalization;
+using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
+using System.Text;
 
 namespace BlogAPI.Repository
 {
     public class UserRepository : IUserRepository
     {
         private readonly AppDbContext appDbContext;
-        public UserRepository(AppDbContext _appDbContext)
+        private readonly Function function;
+        private readonly IConfiguration _configuration;
+        public UserRepository(AppDbContext _appDbContext, Function function, IConfiguration configuration)
         {
             this.appDbContext = _appDbContext;
+            this.function = function;
+            this._configuration = configuration;
         }
-        public userrequestformDTO adduserDTO(userrequestformDTO adduserDTO)
+        public UserRequestFormDTO registeruser(UserRequestFormDTO adduserDTO)
         {
             var userDomain = new user
             {
                 user_firstName = adduserDTO.user_firstName,
                 user_lastName = adduserDTO.user_lastName,
-                user_birthDate = DateTime.ParseExact(adduserDTO.user_birthDate, "dd/MM/yyyy", CultureInfo.InvariantCulture),
+                user_birthday = DateTime.ParseExact(adduserDTO.user_birthDate, "dd/MM/yyyy", CultureInfo.InvariantCulture),
             };
             appDbContext.user.Add(userDomain);
             appDbContext.SaveChanges();
+            var encryptPassword = function.HashPassword(adduserDTO.cred_password);
+            var getRoleID = appDbContext.role
+                .Where(r => r.role.role_name == "User")
+                .Select(r => r.role.role_id)
+                .FirstOrDefault();
             var credDomain = new credential
             {
                 user_id = userDomain.user_id,
                 cred_createDate = DateTime.Now,
                 cred_userName = adduserDTO.cred_userName,
-                cred_passWord = adduserDTO.cred_passWord,
+                cred_password = encryptPassword,
                 cred_roleid = 2,
             };
             if(adduserDTO.attach_file != null)
@@ -38,6 +54,23 @@ namespace BlogAPI.Repository
             appDbContext.credential.Add(credDomain);
             appDbContext.SaveChanges();
             return adduserDTO;
+        }
+        public LoginDataDTO loginData(LoginDataDTO loginDataDTO, string userID)
+        {
+            var getUser = appDbContext.user.Include(p => p.post).ThenInclude(v => v.volume)
+                .ThenInclude(c => c.chapter).Include(c=>c.credential).ThenInclude(r=>r.role).Where(ui => ui.user_id.ToString() == userID);
+
+            var userDomain = getUser.Select(ud => new LoginDataDTO()
+            {
+                lastName = ud.user_lastName,
+                firstName = ud.user_firstName,
+                avatar = ud.user_avatar,
+                birthDate = ud.user_birthday,
+                roleName = ud.credential.role.role_name,
+                user_id = ud.user_id,
+            }).FirstOrDefault();
+            return userDomain;
+
         }
         public string UploadImage(IFormFile file, Guid userId)
         {
@@ -79,6 +112,29 @@ namespace BlogAPI.Repository
                 Directory.Delete(folderPath, true);
                 return true;
             }
+        }
+        public string GenerateJwtToken(LoginDataDTO loginDataDTO)
+        {
+            var jwtSettings = _configuration.GetSection("Jwt");
+            var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtSettings["SecretKey"]));
+            var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);
+            var claims = new List<Claim>
+            {
+                new Claim(ClaimTypes.NameIdentifier, loginDataDTO.user_id.ToString()),
+                new Claim(ClaimTypes.Surname, loginDataDTO.lastName.ToString()),
+                new Claim(ClaimTypes.GivenName, loginDataDTO.firstName.ToString()),
+                new Claim(ClaimTypes.DateOfBirth, loginDataDTO.birthDate.ToString("yyyy-MM-dd")),
+                new Claim(ClaimTypes.Uri, loginDataDTO.avatar.ToString()),
+                new Claim(ClaimTypes.Role, loginDataDTO.roleName)
+            };
+            var token = new JwtSecurityToken(
+                issuer: jwtSettings["Issuer"],
+                audience: jwtSettings["Audience"],
+                claims: claims,
+                expires: DateTime.Now.AddMinutes(30),
+                signingCredentials: credentials
+            );
+            return new JwtSecurityTokenHandler().WriteToken(token);
         }
     }
 }

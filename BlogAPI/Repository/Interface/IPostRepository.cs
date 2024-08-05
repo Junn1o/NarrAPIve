@@ -4,8 +4,8 @@ namespace BlogAPI.Repository.Interface
 {
     public interface IPostRepository
     {
-        postresultDTO getfullpost(int pageNumber, int pageSize);
-        postrequestformDTO addpostDTO(postrequestformDTO addpostDTO);
+        PostResultDTO getfullpost(int pageNumber, int pageSize);
+        PostrequestFormDTO addpostDTO(PostrequestFormDTO addpostDTO);
         //postwithidDTO Getpostwithid(Guid id);
     }
 }
