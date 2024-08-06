@@ -113,28 +113,5 @@ namespace BlogAPI.Repository
                 return true;
             }
         }
-        public string GenerateJwtToken(LoginDataDTO loginDataDTO)
-        {
-            var jwtSettings = _configuration.GetSection("Jwt");
-            var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtSettings["SecretKey"]));
-            var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);
-            var claims = new List<Claim>
-            {
-                new Claim(ClaimTypes.NameIdentifier, loginDataDTO.user_id.ToString()),
-                new Claim(ClaimTypes.Surname, loginDataDTO.lastName.ToString()),
-                new Claim(ClaimTypes.GivenName, loginDataDTO.firstName.ToString()),
-                new Claim(ClaimTypes.DateOfBirth, loginDataDTO.birthDate.ToString("yyyy-MM-dd")),
-                new Claim(ClaimTypes.Uri, loginDataDTO.avatar.ToString()),
-                new Claim(ClaimTypes.Role, loginDataDTO.roleName)
-            };
-            var token = new JwtSecurityToken(
-                issuer: jwtSettings["Issuer"],
-                audience: jwtSettings["Audience"],
-                claims: claims,
-                expires: DateTime.Now.AddMinutes(30),
-                signingCredentials: credentials
-            );
-            return new JwtSecurityTokenHandler().WriteToken(token);
-        }
     }
 }
