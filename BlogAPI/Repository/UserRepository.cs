@@ -55,23 +55,6 @@ namespace BlogAPI.Repository
             appDbContext.SaveChanges();
             return adduserDTO;
         }
-        public LoginDataDTO loginData(LoginDataDTO loginDataDTO, string userID)
-        {
-            var getUser = appDbContext.user.Include(p => p.post).ThenInclude(v => v.volume)
-                .ThenInclude(c => c.chapter).Include(c=>c.credential).ThenInclude(r=>r.role).Where(ui => ui.user_id.ToString() == userID);
-
-            var userDomain = getUser.Select(ud => new LoginDataDTO()
-            {
-                lastName = ud.user_lastName,
-                firstName = ud.user_firstName,
-                avatar = ud.user_avatar,
-                birthDate = ud.user_birthday,
-                roleName = ud.credential.role.role_name,
-                user_id = ud.user_id,
-            }).FirstOrDefault();
-            return userDomain;
-
-        }
         public string UploadImage(IFormFile file, Guid userId)
         {
             var fileExtension = Path.GetExtension(file.FileName);

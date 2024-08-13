@@ -8,6 +8,9 @@ using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using System.Security.Cryptography;
 using Microsoft.Extensions.Options;
+using System.Security.Claims;
+using System.Security.Cryptography.X509Certificates;
+using Microsoft.AspNetCore.Server.Kestrel.Https;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -33,20 +36,32 @@ builder.Services.AddAuthentication(option =>
     option.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
     option.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
 })
-    .AddJwtBearer(option => 
-    option.TokenValidationParameters = new TokenValidationParameters
- {
-     ValidateIssuer = true,
-     ValidateAudience = true,
-     ValidateLifetime = true,
-     ValidateIssuerSigningKey = true,
-     ValidIssuer = builder.Configuration["Jwt:Issuer"],
-     ValidAudience = builder.Configuration["Jwt:Audience"],
-     ClockSkew = TimeSpan.Zero,
-     IssuerSigningKey = new RsaSecurityKey(publicKey)
-     //IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Key"]))
- });
+    .AddJwtBearer(option =>
+    {
+        option.SaveToken = true;
+        option.RequireHttpsMetadata = false;
+        option.IncludeErrorDetails = true;
+        option.TokenValidationParameters = new TokenValidationParameters
+        {
+            ValidateIssuer = true,
+            ValidateAudience = true,
+            ValidateLifetime = true,
+            ValidateIssuerSigningKey = true,
+            ValidIssuer = builder.Configuration["Jwt:Issuer"],
+            ValidAudience = builder.Configuration["Jwt:Audience"],
+            ClockSkew = TimeSpan.Zero,
+            IssuerSigningKey = new RsaSecurityKey(publicKey),
+            //IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Key"]))
+        };
+    });
+//builder.Services.AddAuthorization(options =>
+//{
+//    options.AddPolicy("AdminPolicy", policy => policy.RequireRole("Admin"));
+//    options.AddPolicy("UserPolicy", policy => policy.RequireRole("User"));
+//});
+var environment = builder.Environment;
 
+// Get the path to the certificate in wwwroot
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -55,7 +70,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
-
+app.UseHsts();
 app.UseHttpsRedirection();
 
 app.UseAuthentication();
