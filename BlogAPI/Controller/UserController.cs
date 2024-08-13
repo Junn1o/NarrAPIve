@@ -28,9 +28,8 @@ namespace BlogAPI.Controller
         [HttpPost("login")]
         public IActionResult Login([FromForm] CredentialDTO credentialDTO)
         {
-
-            var credential = _credentialRepository.Login(credentialDTO.userName, credentialDTO.password);
-            if (credential == null)
+            var credential = _credentialRepository.Login(credentialDTO.userName);
+            if (credential == null || !_credentialRepository.ValidatePassword(credentialDTO.userName, credentialDTO.password))
                 return Unauthorized();
             var loginResponse = _credentialRepository.LoginData(credentialDTO.userName);
             var token = _credentialRepository.GenerateJwtToken(loginResponse);
