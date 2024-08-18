@@ -3,21 +3,34 @@
 namespace BlogAPI.Model.DTO
 {
 
-    public class PostwithIdDTO
+    public class PostWithIdDTO
     {
+        public string postId { get; set; }
         public string postTitle { get; set; }
         //public string post_shortDes { get; set; }
-        public string postDescriptiop { get; set; }
-        public bool postStatus { get; set; }
+        public string postDescription { get; set; }
+        public string postStatus { get; set; }
         public DateTime postCreateDate { get; set; }
-        public bool postHidden { get; set; }
-        public bool postType { get; set; }
+        public string postHidden { get; set; }
+        public string postType { get; set; }
         public string totalVolume { get; set; }
         public string chapterCount { get; set; }
         //public List<string> chapter_list { get; set; }
         public List<string> volumeList { get; set; }
+        public List<string> categoryName {  get; set; }
     }
-    public class PostVolumeWithIdDTO
+    public class PostWithUserIdDTO
+    {
+        public string postId { get; set; }
+        public string postTitle { get; set; }
+        public string postDescription { get; set; }
+        public string postStatus { get; set; }
+        public DateTime postCreateDate { get; set; }
+        public string postHidden { get; set; }
+        public string totalVolume { get; set; }
+        public List<string> categoryName { get; set; }
+    }
+    public class VolumeWithPostIdDTO
     {
         public string volumeTitle { get; set; }
         public List<string> chapterList { get; set; }
@@ -32,17 +45,22 @@ namespace BlogAPI.Model.DTO
             public string postTitle { get; set; }
             public string postShortDes { get; set; }
             //public string postLongDes { get; set; }
-            public bool postStatus { get; set; }
+            public string postStatus { get; set; }
             public string postCreateDate { get; set; }
-            public bool postHidden { get; set; }
-            public bool postType { get; set; }
-            public Guid volumeId { get; set; }
+            public string postHidden { get; set; }
+            public string postType { get; set; }
+            public string totalVolume { get; set; }
+            public string chapterCount { get; set; }
+            public string userFirstName { get; set; }
+            public string userLastName { get; set; }
+            //public Guid volumeId { get; set; }
+            public List<string> categoryName { get; set; }
         }
         public List<PostListDTO> post { get; set; }
         public int totalResult { get; set; }
         public int totalPages { get; set; }
     }
-    public class PostrequestFormDTO
+    public class PostRequestFormDTO
     {
         public string postTitle { get; set; }
         //public string post_shortDes { get; set; }

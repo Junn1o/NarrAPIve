@@ -35,12 +35,11 @@ namespace BlogAPI.Repository
                     post = postList.ToList(),
                     totalResult = totalResult,
                     totalPages = totalPage,
-                    
                 };
                 return result;
             }
         }
-        public PostrequestFormDTO addpostDTO(PostrequestFormDTO addpost)
+        public PostRequestFormDTO addpostDTO(PostRequestFormDTO addpost)
         {
             //var user = _appDbContext.User.FirstOrDefault(a => a.Id == addpost.userId);
             var userid = appDbContext.user.FirstOrDefault(u => u.user_id == addpost.user_id);

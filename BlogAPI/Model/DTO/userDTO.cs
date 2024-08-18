@@ -9,37 +9,51 @@ namespace BlogAPI.Model.DTO
         public int totalPages { get; set; }
         public class UserListDTO
         {
-            public Guid user_id { get; set; }
-            public string user_firstName { get; set; }
-            public string user_lastName { get; set; }
-            public string user_birthDate { get; set; }
-            public string user_avatar { get; set; }
+            public Guid userId { get; set; }
+            public string firstName { get; set; }
+            public string lastName { get; set; }
+            public string birthdate { get; set; }
+            public string avatar { get; set; }
+            public string gender { get; set; }
         }
     }
     public class UserWithIdDTO
     {
-        public string user_firstName { get; set; }
-        public string user_lastName { get; set; }
-        public string user_birthDate { get; set; }
-        public string user_avatar { get; set; }
+        public Guid userId { get; set; }
+        public string userName { get; set; }
+        public string firstName { get; set; }
+        public string lastName { get; set; }
+        public string birthdate { get; set; }
+        public string avatar { get; set; }
+        public string gender { get; set; }
+        public string roleName { get; set; }
+        public string dateCreate { get; set; }
     }
     public class UserRequestFormDTO
     {
-        public string user_firstName { get; set; }
-        public string user_lastName { get; set; }
-        public string user_birthDate { get; set; }
-        //public string? user_avatar { get; set; }
-        public string cred_userName { get; set; }
-        public string cred_password { get; set; }
-        public IFormFile? attach_file { set; get; }
+        public Guid userId { get; set; }
+        public string firstName { get; set; }
+        public string lastName { get; set; }
+        public bool gender { get; set; }
+        public string birthdate { get; set; }
+        public string? avatar { get; set; }
+        public string userName { get; set; }
+        public string password { get; set; }
+        public IFormFile? attachFile { set; get; }
     }
-    //public class LoginDataDTO
-    //{
-    //    public Guid user_id { get; set; }
-    //    public string firstName { get; set; }
-    //    public string lastName { get; set; }
-    //    public DateTime birthDate { get; set; }
-    //    public string? avatar { get; set; }
-    //    public string roleName { get; set; }
-    //}
+    public class LoginDTO
+    {
+        public string userName { get; set; }
+        public string password { get; set; }
+    }
+    public class ResponseDataDTO
+    {
+        public Guid userId { get; set; }
+        public string userName { get; set; }
+        public string firstName { get; set; }
+        public string lastName { get; set; }
+        public DateTime birthdate { get; set; }
+        public string? avatar { get; set; }
+        public string roleName { get; set; }
+    }
 }
