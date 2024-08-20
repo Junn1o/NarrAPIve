@@ -36,7 +36,7 @@ namespace BlogAPI.Controller
             return Ok(new { token });
         }
         [Authorize]
-        [HttpGet("user")]
+        [HttpGet("user/{userId}")]
         public IActionResult UserWithId([FromForm] Guid userId)
         {
             var currentUserId = new Guid(User.FindFirstValue(ClaimTypes.NameIdentifier));
