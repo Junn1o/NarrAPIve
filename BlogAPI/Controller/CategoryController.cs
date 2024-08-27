@@ -20,6 +20,7 @@ namespace BlogAPI.Controller
             _categoryRepository = categoryRepository;
         }
         [HttpGet("category")]
+        [Authorize(Roles = "User")]
         public IActionResult GetAllCategory()
         {
             var category = _categoryRepository.GetAllCategory();
