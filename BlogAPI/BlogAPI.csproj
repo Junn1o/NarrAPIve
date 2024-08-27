@@ -26,7 +26,7 @@
 
   <ItemGroup>
     <Folder Include="Data\" />
-    <Folder Include="Migrations\" />
+    <Folder Include="Migrations\Add-Migration InitialDatabaseMigration\" />
     <Folder Include="wwwroot\images\user\" />
   </ItemGroup>
 
