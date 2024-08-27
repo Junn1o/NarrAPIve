@@ -4,6 +4,7 @@ using BlogAPI.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BlogAPI.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240818184053_InitialDatabaseMigrationv5.3")]
+    partial class InitialDatabaseMigrationv53
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -108,9 +111,6 @@ namespace BlogAPI.Migrations
 
                     b.Property<bool>("post_hidden")
                         .HasColumnType("bit");
-
-                    b.Property<string>("post_image")
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("post_status")
                         .HasColumnType("bit");
@@ -213,13 +213,6 @@ namespace BlogAPI.Migrations
 
                     b.Property<DateTime>("volume_createDate")
                         .HasColumnType("datetime2");
-
-                    b.Property<string>("volume_description")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("volume_image")
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("volume_title")
                         .IsRequired()
