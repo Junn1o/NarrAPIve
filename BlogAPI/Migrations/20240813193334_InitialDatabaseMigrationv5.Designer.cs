@@ -4,6 +4,7 @@ using BlogAPI.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BlogAPI.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240813193334_InitialDatabaseMigrationv5")]
+    partial class InitialDatabaseMigrationv5
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -97,20 +100,17 @@ namespace BlogAPI.Migrations
             modelBuilder.Entity("BlogAPI.Model.Domain.post", b =>
                 {
                     b.Property<Guid>("post_id")
-                        .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<DateTime>("post_createDate")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("post_description")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("post_hidden")
                         .HasColumnType("bit");
-
-                    b.Property<string>("post_image")
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("post_status")
                         .HasColumnType("bit");
@@ -122,12 +122,7 @@ namespace BlogAPI.Migrations
                     b.Property<bool>("post_type")
                         .HasColumnType("bit");
 
-                    b.Property<Guid>("user_id")
-                        .HasColumnType("uniqueidentifier");
-
                     b.HasKey("post_id");
-
-                    b.HasIndex("user_id");
 
                     b.ToTable("post");
                 });
@@ -180,18 +175,18 @@ namespace BlogAPI.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<bool>("gender")
+                        .HasColumnType("bit");
+
                     b.Property<string>("user_avatar")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime>("user_birthdate")
+                    b.Property<DateTime>("user_birthday")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("user_firstName")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool?>("user_gender")
-                        .HasColumnType("bit");
 
                     b.Property<string>("user_lastName")
                         .IsRequired()
@@ -213,13 +208,6 @@ namespace BlogAPI.Migrations
 
                     b.Property<DateTime>("volume_createDate")
                         .HasColumnType("datetime2");
-
-                    b.Property<string>("volume_description")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("volume_image")
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("volume_title")
                         .IsRequired()
@@ -266,7 +254,7 @@ namespace BlogAPI.Migrations
                 {
                     b.HasOne("BlogAPI.Model.Domain.user", "user")
                         .WithMany("post")
-                        .HasForeignKey("user_id")
+                        .HasForeignKey("post_id")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
