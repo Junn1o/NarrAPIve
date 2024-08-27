@@ -2,7 +2,9 @@
 using BlogAPI.Model.DTO;
 using BlogAPI.Repository;
 using BlogAPI.Repository.Interface;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
 
 namespace BlogAPI.Controller
 {
@@ -12,28 +14,36 @@ namespace BlogAPI.Controller
     {
         private readonly AppDbContext _appDbContext;
         private readonly IUserRepository _userRepository;
-        private readonly ICredentialRepository _credentialRepository;
-        public UserController(AppDbContext appDbContext, IUserRepository userRepository, ICredentialRepository credentialRepository)
+        public UserController(AppDbContext appDbContext, IUserRepository userRepository)
         {
             _appDbContext = appDbContext;
             _userRepository = userRepository;
-            _credentialRepository = credentialRepository;
         }
-        [HttpPost("register-user")]
-        public IActionResult registeruser([FromForm] UserRequestFormDTO adduserDTO)
+        [HttpPost("register")]
+        public IActionResult RegisterUser([FromForm] UserRequestFormDTO adduserDTO)
         {
-            var userAdd = _userRepository.registeruser(adduserDTO);
+            var userAdd = _userRepository.RegisterUser(adduserDTO);
             return Ok(userAdd);
         }
         [HttpPost("login")]
-        public IActionResult Login([FromForm] CredentialDTO credentialDTO)
+        public IActionResult Login([FromForm] LoginDTO credentialDTO)
         {
-            var credential = _credentialRepository.Login(credentialDTO.userName);
-            if (credential == null || !_credentialRepository.ValidatePassword(credentialDTO.userName, credentialDTO.password))
+            var credential = _userRepository.Login(credentialDTO.userName);
+            if (credential == null || !_userRepository.ValidatePassword(credentialDTO.userName, credentialDTO.password))
                 return Unauthorized();
-            var loginResponse = _credentialRepository.LoginData(credentialDTO.userName);
-            var token = _credentialRepository.GenerateJwtToken(loginResponse);
+            var loginResponse = _userRepository.ResponseData(credentialDTO.userName);
+            var token = _userRepository.GenerateJwtToken(loginResponse);
             return Ok(new { token });
+        }
+        [HttpGet("user/{userId}")]
+        [Authorize]
+        public IActionResult UserWithId([FromForm] Guid userId)
+        {
+            var currentUserId = new Guid(User.FindFirstValue(ClaimTypes.NameIdentifier));
+            var user = _userRepository.UserWithId(userId, currentUserId);
+            if (user == null)
+                return NotFound();
+            return Ok(user);
         }
     }
 }
