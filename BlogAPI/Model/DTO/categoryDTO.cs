@@ -13,10 +13,11 @@
         public class PostListDTO
         {
             public Guid postId { get; set; }
+            public Guid userId { get; set; }
             public string postTitle { get; set; }
             public string postDescription { get; set; }
             public string postStatus { get; set; }
-            public DateTime postCreateDate { get; set; }
+            public string postCreateDate { get; set; }
             public string postHidden { get; set; }
             public string postType { get; set; }
             public int totalVolume { get; set; }

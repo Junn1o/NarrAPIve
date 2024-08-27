@@ -35,8 +35,8 @@ namespace BlogAPI.Controller
             var token = _userRepository.GenerateJwtToken(loginResponse);
             return Ok(new { token });
         }
-        [Authorize]
         [HttpGet("user/{userId}")]
+        [Authorize]
         public IActionResult UserWithId([FromForm] Guid userId)
         {
             var currentUserId = new Guid(User.FindFirstValue(ClaimTypes.NameIdentifier));

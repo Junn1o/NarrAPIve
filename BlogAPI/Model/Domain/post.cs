@@ -8,6 +8,7 @@ namespace BlogAPI.Model.Domain
         [Key]
         public Guid post_id { get; set; }
         public Guid user_id { get; set; }
+        public string? post_image { get; set; }
         public string post_title { get; set; }
         public string? post_description { get; set; } 
         public bool post_status { get; set; } // approve or not?

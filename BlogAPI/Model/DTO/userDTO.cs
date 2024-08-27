@@ -36,7 +36,7 @@ namespace BlogAPI.Model.DTO
         public string lastName { get; set; }
         public bool gender { get; set; }
         public string birthdate { get; set; }
-        public string? avatar { get; set; }
+        public string? userAvatar { get; set; }
         public string userName { get; set; }
         public string password { get; set; }
         public IFormFile? attachFile { set; get; }

@@ -27,8 +27,8 @@ namespace BlogAPI.Controller
                 return NotFound();
             return Ok(category);
         }
-        [Authorize(Roles = "User")]
         [HttpGet("category/{categoryId}")]
+        [Authorize(Roles = "User")]
         public IActionResult GetCategoryWithIdDTO(Guid categoryId, int pageNumber, int pageSize)
         {
             var category = _categoryRepository.GetCategoryWithIdDTO(categoryId, pageNumber, pageSize);
@@ -36,8 +36,8 @@ namespace BlogAPI.Controller
                 return NotFound();
             return Ok(category);
         }
-        [Authorize(Roles = "Admin")]
         [HttpPost("category")]
+        [Authorize(Roles = "Admin")]
         public IActionResult AddCategory([FromForm] CategoryRequestFromDTO addcategoryDTO)
         {
             var category = _categoryRepository.AddCategory(addcategoryDTO);
@@ -45,8 +45,8 @@ namespace BlogAPI.Controller
                 return Ok(500);
             return Ok(category);
         }
-        [Authorize(Roles = "Admin")]
         [HttpPut("category")]
+        [Authorize(Roles = "Admin")]
         public IActionResult UpdateCategory(Guid categoryId, [FromForm] CategoryRequestFromDTO updatecategoryDTO)
         {
             var category = _categoryRepository.UpdateCategory(categoryId, updatecategoryDTO);
@@ -54,8 +54,8 @@ namespace BlogAPI.Controller
                 return NotFound();
             return Ok(category);
         }
-        [Authorize(Roles = "Admin")]
         [HttpDelete("category")]
+        [Authorize(Roles = "Admin")]
         public IActionResult DeleteCategory(Guid categoryId)
         {
             var category = _categoryRepository.DeleteCategory(categoryId);

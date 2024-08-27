@@ -1,5 +1,6 @@
 ﻿using BlogAPI.Model.Domain;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace BlogAPI.Data
 {

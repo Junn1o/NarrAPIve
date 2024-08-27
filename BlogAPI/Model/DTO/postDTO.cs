@@ -5,55 +5,87 @@ namespace BlogAPI.Model.DTO
 
     public class PostWithIdDTO
     {
-        public string postId { get; set; }
+        public Guid postId { get; set; }
+        public Guid userId { get; set; }
         public string postTitle { get; set; }
-        //public string post_shortDes { get; set; }
         public string postDescription { get; set; }
         public string postStatus { get; set; }
-        public DateTime postCreateDate { get; set; }
+        public string postCreateDate { get; set; }
         public string postHidden { get; set; }
         public string postType { get; set; }
-        public string totalVolume { get; set; }
-        public string chapterCount { get; set; }
-        //public List<string> chapter_list { get; set; }
-        public List<string> volumeList { get; set; }
-        public List<string> categoryName {  get; set; }
+        public string lastName { get; set; }
+        public string firstName { get; set; }
+        public int totalVolume { get; set; }
+        public List<VolumeListDTO> volumeList { get; set; }
+        public class VolumeListDTO
+        {
+            public Guid volumeId { get; set; }
+            public string volumeTitle { get; set; }
+            public string volumeCreateDate { get; set; }
+        }
+        public List<CategoryListDTO> categorylist { get; set; }
+        public class CategoryListDTO
+        {
+            public Guid categoryId { get; set; }
+            public string categoryName { get; set; }
+        }
     }
     public class PostWithUserIdDTO
     {
-        public string postId { get; set; }
+        public Guid postId { get; set; }
+        public Guid userId { get; set; }
         public string postTitle { get; set; }
         public string postDescription { get; set; }
         public string postStatus { get; set; }
-        public DateTime postCreateDate { get; set; }
+        public string postCreateDate { get; set; }
         public string postHidden { get; set; }
-        public string totalVolume { get; set; }
-        public List<string> categoryName { get; set; }
+        public string postType { get; set; }
+        public string lastName { get; set; }
+        public string firstName { get; set; }
+        public int totalVolume { get; set; }
+        public List<VolumeListDTO> volumeList { get; set; }
+        public class VolumeListDTO
+        {
+            public Guid volumeId { get; set; }
+            public string volumeTitle { get; set; }
+            public string volumeCreateDate { get; set; }
+        }
+        public List<CategoryListDTO> categorylist { get; set; }
+        public class CategoryListDTO
+        {
+            public Guid categoryId { get; set; }
+            public string categoryName { get; set; }
+        }
     }
-    public class VolumeWithPostIdDTO
+    public class VolumeDetailWithIdDTO
     {
+        public Guid volumeId { get; set; }
         public string volumeTitle { get; set; }
-        public List<string> chapterList { get; set; }
-        public List<string> chapterContent { get; set; }
-        public string volumeCreatDate { get; set; }
+        public string volumeCreateDate { get; set; }
+        public List<ChapterDTO> chapterList { get; set; }
+        public class ChapterDTO
+        {
+            public Guid chapterId { get; set; }
+            public string chapterTitle { get; set; }
+            public string chapterContent { get; set; }
+        }
     }
     public class PostResultDTO
     {
         public class PostListDTO
         {
             public Guid postId { get; set; }
+            public Guid userId { get; set; }
             public string postTitle { get; set; }
-            public string postShortDes { get; set; }
-            //public string postLongDes { get; set; }
+            public string postDescription { get; set; }
             public string postStatus { get; set; }
-            public string postCreateDate { get; set; }
+            public DateTime postCreateDate { get; set; }
             public string postHidden { get; set; }
             public string postType { get; set; }
-            public string totalVolume { get; set; }
-            public string chapterCount { get; set; }
-            public string userFirstName { get; set; }
-            public string userLastName { get; set; }
-            //public Guid volumeId { get; set; }
+            public int totalVolume { get; set; }
+            public string firstName { get; set; }
+            public string lastName { get; set; }
+            public List<string> volumeList { get; set; }
             public List<string> categoryName { get; set; }
         }
         public List<PostListDTO> post { get; set; }
@@ -63,23 +95,35 @@ namespace BlogAPI.Model.DTO
     public class PostRequestFormDTO
     {
         public string postTitle { get; set; }
-        //public string post_shortDes { get; set; }
         public string postDescription { get; set; }
         public bool postStatus { get; set; }
-        //public DateTime? postCreateDate { get; set; }
         public bool postHidden { get; set; }
         public bool postType { get; set; }
+        public string postImage { get; set; }
         public Guid user_id { get; set; }
         public List<Guid> category_ids { get; set; }
+        public IFormFile? attachFile { get; set; }
     }
     public class VolumeRequestFormDTO
     {
+        public Guid postId { get; set; }
         public string volumeTitle { get; set; }
+        public string volumeDescription { get; set; }
+        public string volumeImage { get; set; }
+        public IFormFile? attachFile { get; set; }
     }
     public class ChapterRequestFormDTO
     {
         public Guid volumeId { get; set; }
         public string chapterTitle { get; set; }
         public string chapterContent { get; set; }
+    }
+    public class ChapterImageRequestFormDTO
+    {
+        public Guid volumeId { get; set; }
+        public Guid postId { get; set; }
+        public string chapterTitle { get; set; }
+        public string chapterContentImage { get; set; }
+        public IFormFile? attachFile { get; set; }
     }
 }

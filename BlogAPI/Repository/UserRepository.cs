@@ -102,7 +102,7 @@ namespace BlogAPI.Repository
                 cred_roleid = getRoleID,
             };
             if(adduserDTO.attachFile != null)
-                userDomain.user_avatar = UploadImage(adduserDTO.attachFile, userDomain.user_id);
+                userDomain.user_avatar = adduserDTO.userAvatar = function.UploadImage(adduserDTO.attachFile, userDomain.user_id, null, null, null);
             appDbContext.credential.Add(credDomain);
             appDbContext.SaveChanges();
             return adduserDTO;
@@ -122,8 +122,8 @@ namespace BlogAPI.Repository
                 userDomain.credential.cred_password = userDomain.credential.cred_password;
             userDomain.credential.cred_userName = adduserDTO.userName;
             userDomain.user_gender = adduserDTO.gender;
-            if (adduserDTO.avatar != null)
-                userDomain.user_avatar = UpdateImage(adduserDTO.attachFile, adduserDTO.avatar, userDomain.user_id);
+            if (adduserDTO.attachFile != null)
+                //userDomain.user_avatar = function.UpdateImage(adduserDTO.attachFile, adduserDTO.avatar, userDomain.user_id);
             appDbContext.SaveChanges();
             return adduserDTO;
         }
@@ -142,7 +142,7 @@ namespace BlogAPI.Repository
             appDbContext.post_category_temp.RemoveRange(userDomain.post.SelectMany(p => p.post_category_temp));
             appDbContext.post.RemoveRange(userDomain.post);
             appDbContext.credential.Remove(userDomain.credential);
-            DeleteImage(userDomain.user_avatar);
+            function.DeleteImageFolder(userDomain.user_avatar);
             appDbContext.user.Remove(userDomain);
             appDbContext.SaveChanges();
             return userDomain;
@@ -211,60 +211,6 @@ namespace BlogAPI.Repository
 
             );
             return new JwtSecurityTokenHandler().WriteToken(token);
-        }
-
-
-
-
-
-
-
-
-
-
-
-
-
-        public string UploadImage(IFormFile file, Guid userId)
-        {
-            var fileExtension = Path.GetExtension(file.FileName);
-            var uploadFolderPath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "images", "user", userId.ToString());
-            Directory.CreateDirectory(uploadFolderPath);
-            var filePath = Path.Combine(uploadFolderPath, "avatar" + fileExtension);
-            using (FileStream ms = new FileStream(filePath, FileMode.Create))
-            {
-                file.CopyTo(ms);
-            }
-            return Path.Combine("images", "user", userId.ToString(), "avatar" + fileExtension);
-        }
-        public string UpdateImage(IFormFile file, string avatarPath, Guid userId)
-        {
-            var oldFullPath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", avatarPath);
-            if (!File.Exists(oldFullPath))
-            {
-                var newPath = UploadImage(file, userId);
-                return newPath;
-            }
-            else
-            {
-                File.Delete(oldFullPath);
-                var newPath = UploadImage(file, userId);
-                return newPath;
-            }
-        }
-        public bool DeleteImage(string imagePath)
-        {
-            string parentDirectoryName = Path.GetFileName(Path.GetDirectoryName(imagePath));
-            var folderPath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "images", "user", parentDirectoryName);
-            if (!Directory.Exists(folderPath))
-            {
-                return false;
-            }
-            else
-            {
-                Directory.Delete(folderPath, true);
-                return true;
-            }
         }
     }
 }

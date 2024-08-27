@@ -30,14 +30,15 @@ namespace BlogAPI.Repository
             var getCategoryPost = categoryDomain.Select(c => new CategoryWithIdDTO.PostListDTO()
             {
                 postId = c.post_id,
+                userId = c.post.user_id,
                 postTitle = c.post.post_title,
-                postCreateDate = c.post.post_createDate,
+                postCreateDate = c.post.post_createDate.ToString("dd/MM/yyyy"),
                 postDescription = c.post.post_description.ToString(),
                 firstName = c.post.user.user_firstName,
                 lastName = c.post.user.user_lastName,
                 postStatus = c.post.post_hidden == true ? "Approved" : "Not approve",
                 postType = c.post.post_type == true ? "Blog" : "Light Novel",
-                postHidden = c.post.post_hidden == null ? "Không Công Khai" : (c.post.post_hidden == true ? "Public" : "Private"),
+                postHidden = c.post.post_hidden == null ? "Hidden" : (c.post.post_hidden == true ? "Public" : "Private"),
                 totalVolume = c.post.volume.Count(),
                 volumeList = c.post.volume.Select(v => v.volume_title).ToList(),
                 categoryName = c.post.post_category_temp.Select(pc => pc.category.category_name).ToList()
