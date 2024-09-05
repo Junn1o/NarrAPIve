@@ -7,7 +7,7 @@ namespace BlogAPI.Repository.Interface
     {
         UserResultDTO UserList(int pageNumber, int pageSize);
         UserWithIdDTO UserWithId(Guid userId, Guid currentUserId);
-        user DeleteUser(Guid userId);
+        user? DeleteUser(Guid userId);
         UserRequestFormDTO RegisterUser(UserRequestFormDTO userrequestformDTO);
         UserRequestFormDTO UpdateUser(Guid userId,UserRequestFormDTO userrequestformDTO);
         LoginDTO Login(string userName);
