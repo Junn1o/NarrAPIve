@@ -1,4 +1,6 @@
-﻿namespace BlogAPI.Model.DTO
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace BlogAPI.Model.DTO
 {
     public class CategoryDTO
     {
@@ -29,6 +31,7 @@
     }
     public class CategoryRequestFromDTO
     {
+        [Required(ErrorMessage = "The {0} filed is required.")]
         public string categoryName { get; set; }
     }
 }
