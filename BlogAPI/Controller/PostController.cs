@@ -203,7 +203,7 @@ namespace BlogAPI.Controller
             else
                 return Ok("Data Empty");
         }
-        [HttpDelete("post/volume/chapter")]
+        [HttpDelete("post/volume/chapter/image")]
         [Authorize(Roles = "User")]
         public IActionResult DeleteChapterImage([FromForm] string chapterImagePath)
         {

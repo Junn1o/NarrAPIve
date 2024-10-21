@@ -28,7 +28,7 @@ namespace BlogAPI.Repository
                 postCreateDate = p.post_createDate,
                 postHidden = p.post_hidden == null ? "Hidden" : (p.post_hidden == true ? "Public" : "Private"),
                 postStatus = p.post_hidden == true ? "Approved" : "Not approve",
-                postType = p.post_type == true ? "Blog" : "Light Novel",
+                postType = p.post_type == true ? "Blog" : "Novel",
                 postDescription = p.post_description,
                 firstName = p.user.user_firstName,
                 lastName = p.user.user_lastName,

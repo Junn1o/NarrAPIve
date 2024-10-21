@@ -42,7 +42,7 @@ namespace BlogAPI.Model.DTO
         public bool gender { get; set; }
         [Required(ErrorMessage = "The {0} filed is required.")]
         [DataType(DataType.Date, ErrorMessage = "Invalid date format.")]
-        [Range(typeof(DateTime), "1/1/1900", "12/31/2023", ErrorMessage = "Birthdate must be between 01/01/1900 and 12/31/2023.")]
+        [Range(typeof(DateTime), "1/1/1900", "12/31/2009", ErrorMessage = "Birthdate must be between 01/01/1900 and 12/31/2009.")]
         public string birthdate { get; set; }
         public string? userAvatar { get; set; }
         [Required(ErrorMessage = "The {0} filed is required.")]
