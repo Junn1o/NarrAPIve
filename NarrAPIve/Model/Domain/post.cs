@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations;
 
-namespace BlogAPI.Model.Domain
+namespace NarrAPIve.Model.Domain
 {
     public class post
     {

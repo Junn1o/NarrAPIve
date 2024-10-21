@@ -1,8 +1,8 @@
-﻿using BlogAPI.Model.Domain;
+﻿using NarrAPIve.Model.Domain;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace BlogAPI.Data
+namespace NarrAPIve.Data
 {
     public class AppDbContext : DbContext
     {

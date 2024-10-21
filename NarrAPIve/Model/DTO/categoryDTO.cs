@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace BlogAPI.Model.DTO
+namespace NarrAPIve.Model.DTO
 {
     public class CategoryDTO
     {

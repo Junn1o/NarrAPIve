@@ -1,7 +1,6 @@
-using BlogAPI.Data;
-using BlogAPI.Repository.Interface;
-using BlogAPI.Repository;
-using Microsoft.AspNetCore.Authentication.Certificate;
+using NarrAPIve.Data;
+using NarrAPIve.Repository.Interface;
+using NarrAPIve.Repository;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
@@ -25,7 +24,7 @@ builder.Services.AddDbContext<AppDbContext>(options =>
  options.UseSqlServer(connectionString));
 builder.Services.AddScoped<IPostRepository, PostRepository>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
-builder.Services.AddScoped<ICredentialRepository, CredentialRepository>();
+builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
 builder.Services.AddScoped<Function>();
 var privateKey = new RSACryptoServiceProvider();
 privateKey.ImportFromPem(File.ReadAllText(builder.Configuration["Jwt:PrivateKey"]));

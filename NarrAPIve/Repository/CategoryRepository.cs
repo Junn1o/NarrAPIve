@@ -1,10 +1,10 @@
-﻿using BlogAPI.Data;
-using BlogAPI.Model.Domain;
-using BlogAPI.Model.DTO;
-using BlogAPI.Repository.Interface;
+﻿using NarrAPIve.Data;
+using NarrAPIve.Model.Domain;
+using NarrAPIve.Model.DTO;
+using NarrAPIve.Repository.Interface;
 using Microsoft.EntityFrameworkCore;
 
-namespace BlogAPI.Repository
+namespace NarrAPIve.Repository
 {
     public class CategoryRepository : ICategoryRepository
     {

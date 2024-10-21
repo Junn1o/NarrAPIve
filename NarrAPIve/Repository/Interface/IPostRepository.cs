@@ -1,7 +1,7 @@
-﻿using BlogAPI.Model.Domain;
-using BlogAPI.Model.DTO;
+﻿using NarrAPIve.Model.Domain;
+using NarrAPIve.Model.DTO;
 
-namespace BlogAPI.Repository.Interface
+namespace NarrAPIve.Repository.Interface
 {
     public interface IPostRepository
     {
