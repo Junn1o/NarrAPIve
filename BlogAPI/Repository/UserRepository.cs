@@ -123,7 +123,7 @@ namespace BlogAPI.Repository
             userDomain.credential.cred_userName = adduserDTO.userName;
             userDomain.user_gender = adduserDTO.gender;
             if (adduserDTO.attachFile != null)
-                //userDomain.user_avatar = function.UpdateImage(adduserDTO.attachFile, adduserDTO.avatar, userDomain.user_id);
+                userDomain.user_avatar = function.UpdateImage(adduserDTO.attachFile, adduserDTO.userAvatar);
             appDbContext.SaveChanges();
             return adduserDTO;
         }
