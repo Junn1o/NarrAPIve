@@ -24,7 +24,7 @@ builder.Services.AddDbContext<AppDbContext>(options =>
  options.UseSqlServer(connectionString));
 builder.Services.AddScoped<IPostRepository, PostRepository>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
-builder.Services.AddScoped<ICredentialRepository, CredentialRepository>();
+builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
 builder.Services.AddScoped<Function>();
 var privateKey = new RSACryptoServiceProvider();
 privateKey.ImportFromPem(File.ReadAllText(builder.Configuration["Jwt:PrivateKey"]));
