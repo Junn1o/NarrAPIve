@@ -1,6 +1,6 @@
-using BlogAPI.Data;
-using BlogAPI.Repository.Interface;
-using BlogAPI.Repository;
+using NarrAPIve.Data;
+using NarrAPIve.Repository.Interface;
+using NarrAPIve.Repository;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;

@@ -1,12 +1,11 @@
-﻿using BlogAPI.Data;
-using BlogAPI.Model.DTO;
-using BlogAPI.Repository;
-using BlogAPI.Repository.Interface;
+﻿using NarrAPIve.Data;
+using NarrAPIve.Model.DTO;
+using NarrAPIve.Repository.Interface;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
 
-namespace BlogAPI.Controller
+namespace NarrAPIve.Controller
 {
     [Route("api/[controller]")]
     [ApiController]

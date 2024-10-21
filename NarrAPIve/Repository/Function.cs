@@ -1,9 +1,9 @@
-﻿using BlogAPI.Data;
-using BlogAPI.Model.Domain;
+﻿using NarrAPIve.Data;
+using NarrAPIve.Model.Domain;
 using Microsoft.AspNetCore.Identity;
 using static System.Net.Mime.MediaTypeNames;
 
-namespace BlogAPI.Repository
+namespace NarrAPIve.Repository
 {
     public class Function
     {

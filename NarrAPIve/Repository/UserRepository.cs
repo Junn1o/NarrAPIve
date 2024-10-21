@@ -1,7 +1,7 @@
-﻿using BlogAPI.Data;
-using BlogAPI.Model.Domain;
-using BlogAPI.Model.DTO;
-using BlogAPI.Repository.Interface;
+﻿using NarrAPIve.Data;
+using NarrAPIve.Model.Domain;
+using NarrAPIve.Model.DTO;
+using NarrAPIve.Repository.Interface;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -13,7 +13,7 @@ using System.Security.Claims;
 using System.Security.Cryptography;
 using System.Text;
 
-namespace BlogAPI.Repository
+namespace NarrAPIve.Repository
 {
     public class UserRepository : IUserRepository
     {
