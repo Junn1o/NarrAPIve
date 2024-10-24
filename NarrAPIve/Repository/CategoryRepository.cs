@@ -37,7 +37,6 @@ namespace NarrAPIve.Repository
                 firstName = c.post.user.user_firstName,
                 lastName = c.post.user.user_lastName,
                 postStatus = c.post.post_hidden == true ? "Approved" : "Not approve",
-                postType = c.post.post_type == true ? "Blog" : "Light Novel",
                 postHidden = c.post.post_hidden == null ? "Hidden" : (c.post.post_hidden == true ? "Public" : "Private"),
                 totalVolume = c.post.volume.Count(),
                 volumeList = c.post.volume.Select(v => v.volume_title).ToList(),

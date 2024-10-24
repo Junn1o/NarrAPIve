@@ -18,7 +18,7 @@ namespace NarrAPIve.Controller
             _categoryRepository = categoryRepository;
         }
         [HttpGet("category")]
-        [Authorize(Roles = "User")]
+        [AllowAnonymous]
         public IActionResult GetAllCategory()
         {
             var category = _categoryRepository.GetAllCategory();
@@ -27,7 +27,7 @@ namespace NarrAPIve.Controller
             return Ok(category);
         }
         [HttpGet("category/{categoryId}")]
-        [Authorize(Roles = "User")]
+        [AllowAnonymous]
         public IActionResult GetCategoryWithIdDTO(Guid categoryId, int pageNumber, int pageSize)
         {
             var category = _categoryRepository.GetCategoryWithIdDTO(categoryId, pageNumber, pageSize);

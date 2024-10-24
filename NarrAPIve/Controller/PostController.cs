@@ -20,7 +20,7 @@ namespace NarrAPIve.Controller
             _ipostRepository = ipostRepository;
         }
         [HttpGet("post")]
-        [Authorize(Roles = "User")]
+        [Authorize(Roles = "User, Admin")]
         public IActionResult GetFullPost([FromQuery] int pageNumber = 1, [FromQuery] int pageSize = 10)
         {
             var postList = _ipostRepository.GetFullPost(pageNumber, pageSize);
@@ -32,8 +32,8 @@ namespace NarrAPIve.Controller
                 return Ok("Data Empty");
         }
         [HttpGet("post/id/{postId}")]
-        [Authorize(Roles = "User")]
-        public IActionResult PostWithId([FromForm] Guid postId)
+        [Authorize(Roles = "User, Admin")]
+        public IActionResult PostWithId(Guid postId)
         {
             var postListWithId = _ipostRepository.PostWithId(postId);
             if (postListWithId != null)
@@ -44,7 +44,7 @@ namespace NarrAPIve.Controller
                 return Ok("Data Empty");
         }
         [HttpGet("post/user/{userId}")]
-        [Authorize(Roles = "User")]
+        [Authorize(Roles = "User, Admin")]
         public IActionResult PostWithUserId([FromForm] Guid userId)
         {
             var postListWithUserId = _ipostRepository.PostWithUserId(userId);

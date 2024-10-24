@@ -36,7 +36,7 @@ namespace NarrAPIve.Controller
         }
         [HttpGet("user/{userId}")]
         [Authorize]
-        public IActionResult UserWithId([FromForm] Guid userId)
+        public IActionResult UserWithId(Guid userId)
         {
             var currentUserId = new Guid(User.FindFirstValue(ClaimTypes.NameIdentifier));
             var user = _userRepository.UserWithId(userId, currentUserId);

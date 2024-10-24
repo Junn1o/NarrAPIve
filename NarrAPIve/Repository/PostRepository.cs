@@ -28,7 +28,6 @@ namespace NarrAPIve.Repository
                 postCreateDate = p.post_createDate,
                 postHidden = p.post_hidden == null ? "Hidden" : (p.post_hidden == true ? "Public" : "Private"),
                 postStatus = p.post_hidden == true ? "Approved" : "Not approve",
-                postType = p.post_type == true ? "Blog" : "Novel",
                 postDescription = p.post_description,
                 firstName = p.user.user_firstName,
                 lastName = p.user.user_lastName,
@@ -70,7 +69,6 @@ namespace NarrAPIve.Repository
                 postDescription = p.post_description,
                 postHidden = p.post_hidden == null ? "Hidden" : (p.post_hidden == true ? "Public" : "Private"),
                 postStatus = p.post_hidden == true ? "Approved" : "Not approve",
-                postType = p.post_type == true ? "Blog" : "Light Novel",
                 totalVolume = p.volume.Count(),
                 firstName = p.user.user_firstName,
                 lastName = p.user.user_lastName,
@@ -105,7 +103,6 @@ namespace NarrAPIve.Repository
                 postDescription = p.post_description,
                 postHidden = p.post_hidden == null ? "Hidden" : (p.post_hidden == true ? "Public" : "Private"),
                 postStatus = p.post_hidden == true ? "Approved" : "Not approve",
-                postType = p.post_type == true ? "Blog" : "Light Novel",
                 totalVolume = p.volume.Count(),
                 firstName = p.user.user_firstName,
                 lastName = p.user.user_lastName,
@@ -152,7 +149,6 @@ namespace NarrAPIve.Repository
                 post_description = addpostDTO.postDescription,
                 post_hidden = addpostDTO.postHidden,
                 post_status = addpostDTO.postStatus = false,
-                post_type = addpostDTO.postType,
                 post_createDate = (DateTime.Now),
             };
             appDbContext.post.Add(postDomain);
@@ -184,7 +180,6 @@ namespace NarrAPIve.Repository
             postDomain.post_description = updatepostDTO.postDescription;
             postDomain.post_hidden = updatepostDTO.postHidden;
             postDomain.post_status = updatepostDTO.postStatus;
-            postDomain.post_type = updatepostDTO.postType;
             if (updatepostDTO.attachFile != null)
                 postDomain.post_image = updatepostDTO.postImage;
             if (postDomain.post_category_temp != null)

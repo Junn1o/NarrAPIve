@@ -90,8 +90,8 @@ namespace NarrAPIve.Repository
             appDbContext.SaveChanges();
             var encryptPassword = function.HashPassword(adduserDTO.password);
             var getRoleID = appDbContext.role
-                .Where(r => r.role.role_name == "User")
-                .Select(r => r.role.role_id)
+                .Where(r => r.role_name == "User")
+                .Select(r => r.role_id)
                 .FirstOrDefault();
             var credDomain = new credential
             {
@@ -101,7 +101,7 @@ namespace NarrAPIve.Repository
                 cred_password = encryptPassword,
                 cred_roleid = getRoleID,
             };
-            if(adduserDTO.attachFile != null)
+            if (adduserDTO.attachFile != null)
                 userDomain.user_avatar = adduserDTO.userAvatar = function.UploadImage(adduserDTO.attachFile, userDomain.user_id, null, null, null);
             appDbContext.credential.Add(credDomain);
             appDbContext.SaveChanges();

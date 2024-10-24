@@ -14,7 +14,6 @@ namespace NarrAPIve.Model.Domain
         public bool post_status { get; set; } // approve or not?
         public DateTime post_createDate { get; set; }
         public bool post_hidden { get; set; }
-        public bool post_type { get; set; } // blog or lightnovel
         public List<post_category_temp> post_category_temp { get; set; }
         public user user { get; set; } 
         public List<volume>? volume { get; set; }

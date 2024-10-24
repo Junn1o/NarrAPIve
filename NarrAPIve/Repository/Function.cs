@@ -28,7 +28,7 @@ namespace NarrAPIve.Repository
             var fileExtension = Path.GetExtension(file.FileName);
             if (postId != Guid.Empty && volumeId == Guid.Empty && userId == Guid.Empty)
             {
-                var postFolder = Path.Combine(uploadFolderPath + "post" + postId.ToString());
+                var postFolder = Path.Combine(uploadFolderPath , "post" , postId.ToString());
                 Directory.CreateDirectory(postFolder);
                 var filePath = Path.Combine(postFolder, "post-base-image" + fileExtension);
                 using (FileStream ms = new FileStream(filePath, FileMode.Create))
@@ -40,7 +40,7 @@ namespace NarrAPIve.Repository
             // volume only
             if (postId != Guid.Empty && volumeId != Guid.Empty && chapterTitle == null && userId == Guid.Empty)
             {
-                var volumeFolder = Path.Combine(uploadFolderPath + "post" + postId.ToString() + volumeId.ToString());
+                var volumeFolder = Path.Combine(uploadFolderPath , "post" , postId.ToString() + volumeId.ToString());
                 Directory.CreateDirectory(volumeFolder);
                 var filePath = Path.Combine(volumeFolder, "volume-base-image" + fileExtension);
                 using (FileStream ms = new FileStream(filePath, FileMode.Create))
@@ -52,7 +52,7 @@ namespace NarrAPIve.Repository
             // chapter only
             if (postId != Guid.Empty && volumeId != Guid.Empty && chapterTitle != null && userId == Guid.Empty)
             {
-                var volumeFolder = Path.Combine(uploadFolderPath + "post" + postId.ToString() + volumeId.ToString());
+                var volumeFolder = Path.Combine(uploadFolderPath , "post" , postId.ToString() , volumeId.ToString());
                 Directory.CreateDirectory(volumeFolder);
                 int fileCount = Directory.GetFiles(volumeFolder).Length + 1;
                 var filePath = Path.Combine(volumeFolder, chapterTitle + "-" + fileCount + fileExtension);
@@ -64,14 +64,14 @@ namespace NarrAPIve.Repository
             }
             else
             {
-                var userFolder = Path.Combine(uploadFolderPath + "user" + userId.ToString());
+                var userFolder = Path.Combine(uploadFolderPath , "user" , userId.ToString());
                 Directory.CreateDirectory(userFolder);
                 var filePath = Path.Combine(userFolder, "avatar" + fileExtension);
                 using (FileStream ms = new FileStream(filePath, FileMode.Create))
                 {
                     file.CopyTo(ms);
                 }
-                return filePath;
+                return filePath = Path.Combine("images" , "user" , userId.ToString(), "avatar" + fileExtension);
             }
         }
         public string UpdateImage(IFormFile? file, string filePath)

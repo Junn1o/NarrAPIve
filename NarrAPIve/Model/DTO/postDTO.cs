@@ -13,7 +13,6 @@ namespace NarrAPIve.Model.DTO
         public string postStatus { get; set; }
         public string postCreateDate { get; set; }
         public string postHidden { get; set; }
-        public string postType { get; set; }
         public string lastName { get; set; }
         public string firstName { get; set; }
         public int totalVolume { get; set; }
@@ -40,7 +39,6 @@ namespace NarrAPIve.Model.DTO
         public string postStatus { get; set; }
         public string postCreateDate { get; set; }
         public string postHidden { get; set; }
-        public string postType { get; set; }
         public string lastName { get; set; }
         public string firstName { get; set; }
         public int totalVolume { get; set; }
@@ -82,7 +80,6 @@ namespace NarrAPIve.Model.DTO
             public string postStatus { get; set; }
             public DateTime postCreateDate { get; set; }
             public string postHidden { get; set; }
-            public string postType { get; set; }
             public int totalVolume { get; set; }
             public string firstName { get; set; }
             public string lastName { get; set; }
@@ -102,8 +99,6 @@ namespace NarrAPIve.Model.DTO
         [Required(ErrorMessage = "The {0} filed is required.")]
         public bool postStatus { get; set; }
         public bool postHidden { get; set; }
-        [Required(ErrorMessage = "The {0} filed is required.")]
-        public bool postType { get; set; }
         [Required(ErrorMessage = "The {0} filed is required.")]
         public string postImage { get; set; }
         [Required(ErrorMessage = "The {0} filed is required.")]
@@ -142,6 +137,7 @@ namespace NarrAPIve.Model.DTO
         public Guid postId { get; set; }
         public string chapterTitle { get; set; }
         public string chapterContentImage { get; set; }
+        [Required(ErrorMessage = "The {0} filed is required.")]
         public IFormFile? attachFile { get; set; }
     }
 }

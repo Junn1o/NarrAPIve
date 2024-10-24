@@ -21,7 +21,6 @@ namespace NarrAPIve.Model.DTO
             public string postStatus { get; set; }
             public string postCreateDate { get; set; }
             public string postHidden { get; set; }
-            public string postType { get; set; }
             public int totalVolume { get; set; }
             public string firstName { get; set; }
             public string lastName { get; set; }

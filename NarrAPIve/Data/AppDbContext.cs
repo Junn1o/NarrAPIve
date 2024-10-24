@@ -28,6 +28,6 @@ namespace NarrAPIve.Data
         public DbSet<category> category { get; set; }
         public DbSet<post_category_temp> post_category_temp { get; set; }
         public DbSet<credential> credential { get; set; }
-        public DbSet<credential> role { get; set; }
+        public DbSet<role> role { get; set; }
     }
 }
