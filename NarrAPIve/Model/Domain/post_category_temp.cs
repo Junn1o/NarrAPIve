@@ -6,7 +6,7 @@ namespace NarrAPIve.Model.Domain
     {
         [Key]
         public Guid id { get; set; }
-        public Guid category_id { get; set; }
+        public int category_id { get; set; }
         public Guid post_id { get; set; }
         public category category { get; set; }
         public post post { get; set; }

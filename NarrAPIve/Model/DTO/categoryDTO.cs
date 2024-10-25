@@ -4,7 +4,7 @@ namespace NarrAPIve.Model.DTO
 {
     public class CategoryDTO
     {
-        public Guid categoryId { get; set; }
+        public int categoryId { get; set; }
         public string categoryName { get; set; }
     }
     public class CategoryWithIdDTO

@@ -11,6 +11,12 @@ namespace NarrAPIve.Repository
         private readonly AppDbContext appDbContext;
         private readonly Function function;
         private readonly IConfiguration _configuration;
+        public CategoryRepository(AppDbContext _appDbContext, Function function, IConfiguration configuration)
+        {
+            this.appDbContext = _appDbContext;
+            this.function = function;
+            this._configuration = configuration;
+        }
         public List<CategoryDTO> GetAllCategory()
         {
             var categoryDomain = appDbContext.category.Select(c => new CategoryDTO()
@@ -20,7 +26,7 @@ namespace NarrAPIve.Repository
             }).ToList();
             return categoryDomain;
         }
-        public CategoryWithIdDTO GetCategoryWithIdDTO(Guid categoryId, int pageNumber = 1, int pageSize = 10)
+        public CategoryWithIdDTO GetCategoryWithIdDTO(int categoryId, int pageNumber = 1, int pageSize = 10)
         {
             var categoryDomain = appDbContext.post_category_temp
                 .Include(c => c.category)
@@ -41,7 +47,7 @@ namespace NarrAPIve.Repository
                 totalVolume = c.post.volume.Count(),
                 volumeList = c.post.volume.Select(v => v.volume_title).ToList(),
                 categoryName = c.post.post_category_temp.Select(pc => pc.category.category_name).ToList()
-            }).AsSplitQuery();
+            }).AsSingleQuery();
             var skipResults = (pageNumber - 1) * pageSize;
             if (getCategoryPost == null)
             {
@@ -67,11 +73,11 @@ namespace NarrAPIve.Repository
             {
                 category_name = addcategoryDTO.categoryName,
             };
-            appDbContext.category.Add(categoryDomain);
+            appDbContext.Add(categoryDomain);
             appDbContext.SaveChanges();
             return addcategoryDTO;
         }
-        public CategoryRequestFromDTO UpdateCategory(Guid categoryId, CategoryRequestFromDTO updatecategoryDTO)
+        public CategoryRequestFromDTO UpdateCategory(int categoryId, CategoryRequestFromDTO updatecategoryDTO)
         {
             var categoryDomain = appDbContext.category.FirstOrDefault(ui => ui.category_id == categoryId);
             if (categoryDomain == null)
@@ -80,7 +86,7 @@ namespace NarrAPIve.Repository
             appDbContext.SaveChanges();
             return updatecategoryDTO;
         }
-        public category DeleteCategory(Guid categoryId)
+        public category DeleteCategory(int categoryId)
         {
             var categoryDomain = appDbContext.category.Include(c=>c.post_category_temp).FirstOrDefault(c=>c.category_id == categoryId);
             if (categoryDomain == null)

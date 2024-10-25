@@ -28,7 +28,7 @@ namespace NarrAPIve.Controller
         }
         [HttpGet("category/{categoryId}")]
         [AllowAnonymous]
-        public IActionResult GetCategoryWithIdDTO(Guid categoryId, int pageNumber, int pageSize)
+        public IActionResult GetCategoryWithIdDTO(int categoryId, int pageNumber, int pageSize)
         {
             var category = _categoryRepository.GetCategoryWithIdDTO(categoryId, pageNumber, pageSize);
             if (category == null)
@@ -36,7 +36,7 @@ namespace NarrAPIve.Controller
             return Ok(category);
         }
         [HttpPost("category")]
-        [Authorize(Roles = "Admin")]
+        //[Authorize(Roles = "Admin")]
         public IActionResult AddCategory([FromForm] CategoryRequestFromDTO addcategoryDTO)
         {
             var category = _categoryRepository.AddCategory(addcategoryDTO);
@@ -45,8 +45,8 @@ namespace NarrAPIve.Controller
             return Ok(category);
         }
         [HttpPut("category")]
-        [Authorize(Roles = "Admin")]
-        public IActionResult UpdateCategory(Guid categoryId, [FromForm] CategoryRequestFromDTO updatecategoryDTO)
+        //[Authorize(Roles = "Admin")]
+        public IActionResult UpdateCategory(int categoryId, [FromForm] CategoryRequestFromDTO updatecategoryDTO)
         {
             var category = _categoryRepository.UpdateCategory(categoryId, updatecategoryDTO);
             if (category == null)
@@ -54,8 +54,8 @@ namespace NarrAPIve.Controller
             return Ok(category);
         }
         [HttpDelete("category")]
-        [Authorize(Roles = "Admin")]
-        public IActionResult DeleteCategory(Guid categoryId)
+        //[Authorize(Roles = "Admin")]
+        public IActionResult DeleteCategory(int categoryId)
         {
             var category = _categoryRepository.DeleteCategory(categoryId);
             if (category == null)

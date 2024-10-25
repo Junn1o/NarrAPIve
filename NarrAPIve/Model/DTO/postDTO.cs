@@ -26,7 +26,7 @@ namespace NarrAPIve.Model.DTO
         public List<CategoryListDTO> categorylist { get; set; }
         public class CategoryListDTO
         {
-            public Guid categoryId { get; set; }
+            public int categoryId { get; set; }
             public string categoryName { get; set; }
         }
     }
@@ -52,7 +52,7 @@ namespace NarrAPIve.Model.DTO
         public List<CategoryListDTO> categorylist { get; set; }
         public class CategoryListDTO
         {
-            public Guid categoryId { get; set; }
+            public int categoryId { get; set; }
             public string categoryName { get; set; }
         }
     }
@@ -104,7 +104,7 @@ namespace NarrAPIve.Model.DTO
         [Required(ErrorMessage = "The {0} filed is required.")]
         public Guid user_id { get; set; }
         [Required(ErrorMessage = "The {0} filed is required.")]
-        public List<Guid> category_ids { get; set; }
+        public List<int> category_ids { get; set; }
         [Required(ErrorMessage = "The {0} filed is required.")]
         [DataType(DataType.Upload)]
         public IFormFile? attachFile { get; set; }

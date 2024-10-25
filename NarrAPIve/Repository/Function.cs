@@ -35,7 +35,7 @@ namespace NarrAPIve.Repository
                 {
                     file.CopyTo(ms);
                 }
-                return filePath;
+                return filePath = Path.Combine("images", "post", postId.ToString(), "post-base-image" + fileExtension);
             }
             // volume only
             if (postId != Guid.Empty && volumeId != Guid.Empty && chapterTitle == null && userId == Guid.Empty)
@@ -47,7 +47,7 @@ namespace NarrAPIve.Repository
                 {
                     file.CopyTo(ms);
                 }
-                return filePath;
+                return filePath = Path.Combine("images", "post", postId.ToString(), volumeId.ToString(), "volume-base-image" + fileExtension);
             }
             // chapter only
             if (postId != Guid.Empty && volumeId != Guid.Empty && chapterTitle != null && userId == Guid.Empty)
@@ -60,7 +60,7 @@ namespace NarrAPIve.Repository
                 {
                     file.CopyTo(ms);
                 }
-                return filePath;
+                return filePath = Path.Combine("images" , "post", postId.ToString(), volumeId.ToString(), chapterTitle + "-" + fileCount + fileExtension);
             }
             else
             {
